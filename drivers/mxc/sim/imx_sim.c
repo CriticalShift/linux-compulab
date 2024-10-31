@@ -1747,7 +1747,7 @@ static int sim_probe(struct platform_device *pdev)
 		return -ENOMEM;
 	}
 	sim->ioaddr = devm_ioremap_resource(&pdev->dev, sim->res);
-	dev_dbg(&pdev->dev, "mapped base address: 0x%08x\n", (u32)sim->ioaddr);
+	dev_dbg(&pdev->dev, "mapped base address: 0x%p\n", sim->ioaddr);
 	if (IS_ERR(sim->ioaddr)) {
 		dev_err(&pdev->dev,
 			"failed to get ioremap base\n");
