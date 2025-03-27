@@ -1,0 +1,68 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright 2025 CriticalShift
+ */
+
+/ {
+	leds {
+		compatible = "gpio-leds";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_gpio_led>;
+
+		heartbeat-led {
+			label = "Heartbeat";
+			gpios = <&gpio1 12 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "heartbeat";
+		};
+
+		led-1 {
+			label = "LED1";
+			gpios = <&gpio4 30 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+		};
+
+		led-2 {
+			label = "LED2";
+			gpios = <&gpio5 0 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+		};
+
+		led-3 {
+			label = "LED3";
+			gpios = <&gpio4 31 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+		};
+
+		led-4 {
+			label = "LED4";
+			gpios = <&gpio1 1 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+		};
+
+		led-5 {
+			label = "LED5";
+			gpios = <&gpio4 22 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+		};
+
+		led-6 {
+			label = "LED6";
+			gpios = <&gpio5 1 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+		};
+	};
+};
+
+&iomuxc {
+	pinctrl_gpio_led: gpioledgrp {
+		fsl,pins = <
+			MX8MP_IOMUXC_GPIO1_IO12__GPIO1_IO12					0x140 /* Heartbeat */
+			MX8MP_IOMUXC_SAI3_RXD__GPIO4_IO30					0x16 /* LED1 - External pull, fast slew, X6 drive */
+			MX8MP_IOMUXC_SAI3_TXC__GPIO5_IO00					0x16 /* LED2 - External pull, fast slew, X6 drive */
+			MX8MP_IOMUXC_SAI3_TXFS__GPIO4_IO31					0x16 /* LED3 - External pull, fast slew, X6 drive */
+			MX8MP_IOMUXC_GPIO1_IO01__GPIO1_IO01					0x16 /* LED4 - External pull, fast slew, X6 drive */
+			MX8MP_IOMUXC_SAI2_RXC__GPIO4_IO22					0x16 /* LED5 - External pull, fast slew, X6 drive */
+			MX8MP_IOMUXC_SAI3_TXD__GPIO5_IO01					0x16 /* LED6 - External pull, fast slew, X6 drive */
+		>;
+	};
+};

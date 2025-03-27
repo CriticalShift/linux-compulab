@@ -5,48 +5,19 @@
 
 /dts-v1/;
 
-#include "ucm-imx8m-plus.dtsi"
-#include "shield-gpio.dtsi"
-#include <dt-bindings/net/mscc-phy-vsc8531.h>
+/* Core modules */
+#include "imx8mp.dtsi"
+#include "shield-core.dtsi"
+
+
+/* Peripherals */
+#include "shield-cell.dtsi"
+#include "shield-ethernet0.dtsi"
+#include "shield-ethernet1.dtsi"
+#include "shield-leds.dtsi"
+#include "shield-wifi.dtsi"
 
 / {
 	model = "Kform Shield";
 	compatible = "compulab,ucm-imx8m-plus", "fsl,imx8mp";
-
-	chosen {
-		stdout-path = &uart2;
-	};
-};
-
-/* SDIO non-removable */
-&usdhc2 {
-	status = "okay";
-	/delete-property/ cd-gpios;
-	non-removable;
-};
-
-/* Second ethernet */
-&fec {
-	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_fec>, <&pinctrl_fec_phy_reset>, <&pinctrl_fec_phy_int>;
-	phy-mode = "rgmii-id";
-	phy-handle = <&fecphy>;
-	fsl,magic-packet;
-	status = "okay";
-
-	mdio {
-		#address-cells = <1>;
-		#size-cells = <0>;
-
-		fecphy: fec-phy@0 {
-			compatible = "ethernet-phy-id0007.0570";
-			reg = <1>;
-			/* interrupt-parent = <&gpio4>; */
-			/* interrupts = <24 IRQ_TYPE_EDGE_FALLING>; */
-			vsc8531,vddmac		= <1800>;
-			vsc8531,edge-slowdown	= <0>;
-			vsc8531,led-0-mode	= <VSC8531_LINK_1000_ACTIVITY>;
-			vsc8531,led-1-mode	= <VSC8531_LINK_100_ACTIVITY>;
-		};
-	};
 };

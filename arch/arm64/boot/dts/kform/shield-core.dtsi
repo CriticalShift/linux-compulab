@@ -1,0 +1,95 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright 2025 CriticalShift
+ */
+
+#include "shield-emmc.dtsi"
+#include "shield-i2c.dtsi"
+#include "shield-pmic.dtsi"
+#include "shield-uart.dtsi"
+#include "shield-usb.dtsi"
+
+/ {
+	memory@40000000 {
+		device_type = "memory";
+		reg = <0x0 0x40000000 0 0xc0000000>,
+		      <0x1 0x00000000 0 0xc0000000>;
+	};
+};
+
+&A53_0 {
+	cpu-supply = <&buck2>;
+};
+
+&A53_1 {
+	cpu-supply = <&buck2>;
+};
+
+&A53_2 {
+	cpu-supply = <&buck2>;
+};
+
+&A53_3 {
+	cpu-supply = <&buck2>;
+};
+
+&resmem {
+	/* global autoconfigured region for contiguous allocations */
+	linux,cma {
+		compatible = "shared-dma-pool";
+		reusable;
+		size = <0 0x2c000000>;
+		alloc-ranges = <0 0x40000000 0 0x80000000>;
+		linux,cma-default;
+	};
+};
+
+&i2c2 {
+	eeprom@50 {
+		compatible = "atmel,24c08";
+		reg = <0x50>;
+		pagesize = <16>;
+	};
+
+	eeprom@54 {
+		compatible = "atmel,24c08";
+		reg = <0x54>;
+		pagesize = <16>;
+	};
+
+	pca9555:pca9555@20 {
+		compatible = "nxp,pca9555";
+		gpio-controller;
+		#gpio-cells = <2>;
+		reg = <0x20>;
+	};
+
+	rtc@69 {
+		compatible = "ab1805";
+		reg = <0x69>;
+		pagesize = <16>;
+		sqw = "32768_Hz";
+		xt-frequency = <32772300>;
+		status = "okay";
+	};
+};
+
+&snvs_pwrkey {
+	status = "okay";
+};
+
+&wdog1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_wdog>;
+	fsl,ext-reset-output;
+	status = "okay";
+};
+
+&iomuxc {
+	pinctrl_wdog: wdoggrp {
+		fsl,pins = <
+			MX8MP_IOMUXC_GPIO1_IO02__WDOG1_WDOG_B				0x166
+		>;
+	};
+};
+

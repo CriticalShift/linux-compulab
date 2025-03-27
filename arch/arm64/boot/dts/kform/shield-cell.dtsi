@@ -1,0 +1,35 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright 2025 CriticalShift
+ */
+
+/ {
+	gpio-ctrl-pins {
+		compatible = "gpio-leds";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_ctrl_signals>;
+
+		sim-switch {
+			label = "SIM_Select";
+			gpios = <&gpio3 27 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+		};
+
+		cell-enabled {
+			label = "Cell_Enabled";
+			gpios = <&gpio4 12 GPIO_ACTIVE_HIGH>;
+			default-state = "on";
+			retain-state-shutdown;
+		};
+	};
+};
+
+&iomuxc {
+	pinctrl_ctrl_signals: ctrlgrp {
+		fsl,pins = <
+			/* USB */
+			MX8MP_IOMUXC_HDMI_DDC_SDA__GPIO3_IO27				0x112 /* P091 SIM_SWITCH = Pull-down, Fast-slew, X4 drive stength, Active-high */
+			MX8MP_IOMUXC_SAI1_TXD0__GPIO4_IO12					0x152 /* P108 4G enabled = Pull-up, Fast-slew, X4 drive stength, Active-low */
+		>;
+	};
+};

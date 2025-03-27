@@ -1,0 +1,119 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright 2025 CriticalShift
+ */
+
+/ {
+	reg_usdhc2_vmmc: regulator-usdhc2 {
+		compatible = "regulator-fixed";
+		regulator-name = "VSD_3V3";
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+		gpio = <&gpio2 19 GPIO_ACTIVE_HIGH>;
+		enable-active-high;
+		startup-delay-us = <100>;
+		off-on-delay-us = <12000>;
+	};
+
+	gpio-ctrl-pins {
+		compatible = "gpio-leds";
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_ctrl_signals>;
+
+		/*
+		wifi-enabled {
+			label = "WiFi_Enabled";
+			gpios = <&gpio5 12 GPIO_ACTIVE_HIGH>;
+			default-state = "on";
+			retain-state-shutdown;
+		};
+
+		wifi-reset {
+			label = "WiFi_Reset";
+			gpios = <&gpio2 17 GPIO_ACTIVE_LOW>;
+			default-state = "off";
+		};
+		*/
+
+		wifi-device-wake {
+			label = "WiFi_WakeDevice";
+			gpios = <&gpio5 10 GPIO_ACTIVE_HIGH>;
+			default-state = "on";
+		};
+	};
+
+	usdhc2_pwrseq: usdhc2_pwrseq {
+		reset-gpios = <&gpio5 12 GPIO_ACTIVE_LOW>,
+			<&gpio5 13 GPIO_ACTIVE_LOW>;
+	};
+};
+
+&usdhc2 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	assigned-clocks = <&clk IMX8MP_CLK_USDHC2>;
+	assigned-clock-rates = <400000000>;
+	pinctrl-names = "default", "state_100mhz", "state_200mhz";
+	pinctrl-0 = <&pinctrl_usdhc2>;
+	pinctrl-1 = <&pinctrl_usdhc2_100mhz>;
+	pinctrl-2 = <&pinctrl_usdhc2_200mhz>;
+	bus-width = <4>;
+	non-removable;
+	pinctrl-assert-gpios = <&gpio1 4 GPIO_ACTIVE_HIGH>;
+	vmmc-supply = <&reg_usdhc2_vmmc>;
+	wifi-host;
+	pm-ignore-notify;
+	cap-power-off-card;
+	status = "okay";
+	no-1-8-v;
+	mmc-pwrseq = <&usdhc2_pwrseq>;
+	keep-power-in-suspend;
+	fsl,sdio-async-interrupt-enable;
+	vmmc-supply = <&reg_usdhc2_vmmc>;
+};
+
+&iomuxc {
+	pinctrl_usdhc2: usdhc2grp {
+		fsl,pins = <
+			MX8MP_IOMUXC_SD2_CLK__USDHC2_CLK					0x190
+			MX8MP_IOMUXC_SD2_CMD__USDHC2_CMD					0x1d0
+			MX8MP_IOMUXC_SD2_DATA0__USDHC2_DATA0				0x1d0
+			MX8MP_IOMUXC_SD2_DATA1__USDHC2_DATA1				0x1d0
+			MX8MP_IOMUXC_SD2_DATA2__USDHC2_DATA2				0x1d0
+			MX8MP_IOMUXC_SD2_DATA3__USDHC2_DATA3				0x1d0
+			MX8MP_IOMUXC_ECSPI2_MISO__GPIO5_IO12				0x06 /* P140 WiFi PDn */
+		>;
+	};
+
+	pinctrl_usdhc2_100mhz: usdhc2grp-100mhz {
+		fsl,pins = <
+			MX8MP_IOMUXC_SD2_CLK__USDHC2_CLK					0x194
+			MX8MP_IOMUXC_SD2_CMD__USDHC2_CMD					0x1d4
+			MX8MP_IOMUXC_SD2_DATA0__USDHC2_DATA0				0x1d4
+			MX8MP_IOMUXC_SD2_DATA1__USDHC2_DATA1				0x1d4
+			MX8MP_IOMUXC_SD2_DATA2__USDHC2_DATA2				0x1d4
+			MX8MP_IOMUXC_SD2_DATA3__USDHC2_DATA3				0x1d4
+			MX8MP_IOMUXC_ECSPI2_MISO__GPIO5_IO12				0x06 /* P140 WiFi PDn */
+		>;
+	};
+
+	pinctrl_usdhc2_200mhz: usdhc2grp-200mhz {
+		fsl,pins = <
+			MX8MP_IOMUXC_SD2_CLK__USDHC2_CLK					0x196
+			MX8MP_IOMUXC_SD2_CMD__USDHC2_CMD					0x1d6
+			MX8MP_IOMUXC_SD2_DATA0__USDHC2_DATA0				0x1d6
+			MX8MP_IOMUXC_SD2_DATA1__USDHC2_DATA1				0x1d6
+			MX8MP_IOMUXC_SD2_DATA2__USDHC2_DATA2				0x1d6
+			MX8MP_IOMUXC_SD2_DATA3__USDHC2_DATA3				0x1d6
+			MX8MP_IOMUXC_ECSPI2_MISO__GPIO5_IO12				0x06 /* P140 WiFi PDn */
+		>;
+	};
+
+	pinctrl_usdhc2_gpio: usdhc2gpiogrp {
+		fsl,pins = <
+			MX8MP_IOMUXC_SD2_RESET_B__GPIO2_IO19				0x41 /* Regulator */
+// 			MX8MP_IOMUXC_ECSPI2_SS0__GPIO5_IO13					0x06 /* P141 WiFi WL_RST */
+//			MX8MP_IOMUXC_ECSPI2_SCLK__GPIO5_IO10				0x32 /* P138 WiFi WL_DEV_WAKE = Disable internal pull, open drain, fast slew, X4 drive, Active-high (keep high) */
+		>;
+	};
+};
