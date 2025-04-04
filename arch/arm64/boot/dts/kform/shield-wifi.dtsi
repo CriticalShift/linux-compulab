@@ -12,7 +12,7 @@
 		regulator-min-microvolt = <3300000>;
 		regulator-max-microvolt = <3300000>;
 		gpio = <&gpio2 19 GPIO_ACTIVE_HIGH>;
-//		enable-active-high;
+		enable-active-high;
 		startup-delay-us = <100>;
 		off-on-delay-us = <12000>;
 	};
@@ -49,9 +49,9 @@
 	pinctrl-2 = <&pinctrl_usdhc2_200mhz>;
 
 	/* Assert that we want a 3.3v SDIO bus */
-//	pinctrl-assert-gpios = <&gpio1 4 GPIO_ACTIVE_HIGH>;
+	pinctrl-assert-gpios = <&gpio1 4 GPIO_ACTIVE_HIGH>;
 	vmmc-supply = <&reg_usdhc2_vmmc>; // Still not 100% sure this is needed...
-//	no-1-8-v; // The system doesn't support 1.8V even if the host does
+	no-1-8-v; // The system doesn't support 1.8V even if the host does
 
 	/* SDIO bus configurations */
 	bus-width = <4>;	// 4-bit wide bus
@@ -84,7 +84,7 @@
 			MX8MP_IOMUXC_SD2_DATA1__USDHC2_DATA1				0x1d0
 			MX8MP_IOMUXC_SD2_DATA2__USDHC2_DATA2				0x1d0
 			MX8MP_IOMUXC_SD2_DATA3__USDHC2_DATA3				0x1d0
-			MX8MP_IOMUXC_GPIO1_IO04__GPIO1_IO04					0x49	/* 3.3 voltage select */
+			MX8MP_IOMUXC_GPIO1_IO04__USDHC2_VSELECT				0x49	/* 3.3 voltage select */
 			MX8MP_IOMUXC_ECSPI2_MISO__GPIO5_IO12				0x06	/* P140 WiFi PDn */
 		>;
 	};
@@ -97,7 +97,7 @@
 			MX8MP_IOMUXC_SD2_DATA1__USDHC2_DATA1				0x1d4
 			MX8MP_IOMUXC_SD2_DATA2__USDHC2_DATA2				0x1d4
 			MX8MP_IOMUXC_SD2_DATA3__USDHC2_DATA3				0x1d4
-			MX8MP_IOMUXC_GPIO1_IO04__GPIO1_IO04					0x49	/* 3.3 voltage select */
+			MX8MP_IOMUXC_GPIO1_IO04__USDHC2_VSELECT				0x49	/* 3.3 voltage select */
 			MX8MP_IOMUXC_ECSPI2_MISO__GPIO5_IO12				0x06	/* P140 WiFi PDn */
 		>;
 	};
@@ -110,7 +110,7 @@
 			MX8MP_IOMUXC_SD2_DATA1__USDHC2_DATA1				0x1d6
 			MX8MP_IOMUXC_SD2_DATA2__USDHC2_DATA2				0x1d6
 			MX8MP_IOMUXC_SD2_DATA3__USDHC2_DATA3				0x1d6
-			MX8MP_IOMUXC_GPIO1_IO04__GPIO1_IO04					0x49	/* 3.3 voltage select */
+			MX8MP_IOMUXC_GPIO1_IO04__USDHC2_VSELECT				0x49	/* 3.3 voltage select */
 			MX8MP_IOMUXC_ECSPI2_MISO__GPIO5_IO12				0x06	/* P140 WiFi PDn */
 		>;
 	};

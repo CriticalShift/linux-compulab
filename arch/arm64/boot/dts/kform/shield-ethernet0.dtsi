@@ -18,7 +18,7 @@
 		#size-cells = <0>;
 
 		fecphy: fec-phy@0 {
-			compatible = "ethernet-phy-id0007.0570";
+			compatible = "ethernet-phy-id0007.0570", "ethernet-phy-ieee802.3-c22";
 			reg = <0>;
 
 			/* Reset handler */
@@ -63,7 +63,7 @@
 			MX8MP_IOMUXC_SAI1_TXFS__ENET1_RGMII_RX_CTL			0x90
 
 			/* GPIOs */
-			MX8MP_IOMUXC_SAI2_RXFS__GPIO4_IO21					0x10 /* RST */
+			MX8MP_IOMUXC_SAI2_RXFS__GPIO4_IO21					0x30 /* RST */
 			MX8MP_IOMUXC_SAI2_TXFS__GPIO4_IO24					0x10 /* INT */
 		>;
 	};
