@@ -162,3 +162,18 @@ x509.genkey
 
 # Documentation toolchain
 sphinx_*/
+arch/arm64/boot/dts/compulab/ucm-imx8m-plus.processed.dts
+arch/arm64/boot/dts/kform/shield.processed.dts
+arch/arm64/boot/dts/kform/shield.processed.old.dts
+tools/spi-target-aarch64_generic_musl/Build
+tools/spi-target-aarch64_generic_musl/Makefile
+tools/spi-target-aarch64_generic_musl/spidev_fdx
+tools/spi-target-aarch64_generic_musl/spidev_fdx.c
+tools/spi-target-aarch64_generic_musl/spidev_test
+tools/spi-target-aarch64_generic_musl/spidev_test.c
+tools/spi-target-aarch64_generic_musl/include/linux/spi/spi.h
+tools/spi-target-aarch64_generic_musl/include/linux/spi/spidev.h
+tools/spi-target-aarch64_generic_musl/ipkg-aarch64_generic/spidev-test/CONTROL/control
+tools/spi-target-aarch64_generic_musl/ipkg-aarch64_generic/spidev-test/CONTROL/postinst
+tools/spi-target-aarch64_generic_musl/ipkg-aarch64_generic/spidev-test/CONTROL/prerm
+tools/spi-target-aarch64_generic_musl/ipkg-aarch64_generic/spidev-test/sbin/spidev_test
