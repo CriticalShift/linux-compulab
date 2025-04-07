@@ -13,13 +13,16 @@
 	fsl,magic-packet;
 	status = "okay";
 
+	rx-internal-delay-ps = <2000>;
+	tx-internal-delay-ps = <2000>;
+
 	mdio {
 		#address-cells = <1>;
 		#size-cells = <0>;
 
-		fecphy: fec-phy@0 {
+		fecphy: fec-phy@3 {
 			compatible = "ethernet-phy-id0007.0570", "ethernet-phy-ieee802.3-c22";
-			reg = <0>;
+			reg = <3>;
 
 			/* Reset handler */
 			reset-gpios = <&gpio4 21 GPIO_ACTIVE_LOW>;
