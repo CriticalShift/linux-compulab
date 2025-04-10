@@ -8,26 +8,28 @@
 &fec {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_fec>;
+
 	phy-mode = "rgmii";
 	phy-handle = <&fecphy>;
+
 	fsl,magic-packet;
 	status = "okay";
 
-	rx-internal-delay-ps = <2000>;
 	tx-internal-delay-ps = <2000>;
+	rx-internal-delay-ps = <2000>;
 
 	mdio {
 		#address-cells = <1>;
 		#size-cells = <0>;
 
-		fecphy: fec-phy@3 {
-			compatible = "ethernet-phy-id0007.0570", "ethernet-phy-ieee802.3-c22";
-			reg = <3>;
+		fecphy: fec-phy@F {
+			compatible = "ethernet-phy-id0007.0570";
+			reg = <0xF>;
 
 			/* Reset handler */
 			reset-gpios = <&gpio4 21 GPIO_ACTIVE_LOW>;
 			reset-assert-us = <10000>;
-			reset-deassert-us = <80000>;
+			reset-deassert-us = <16000>;
 
 			/* Interrupt handler */
 			interrupt-parent = <&gpio4>;
@@ -46,8 +48,8 @@
 	pinctrl_fec: fecgrp {
 		fsl,pins = <
 			/* MDIO */
-			MX8MP_IOMUXC_SD1_CLK__ENET1_MDC						0x02
-			MX8MP_IOMUXC_SD1_CMD__ENET1_MDIO					0x02
+			MX8MP_IOMUXC_SD1_CLK__ENET1_MDC						0x06
+			MX8MP_IOMUXC_SD1_CMD__ENET1_MDIO					0x26
 
 			/* RGMII Tx */
 			MX8MP_IOMUXC_SD1_DATA1__ENET1_RGMII_TD0				0x16
