@@ -9,14 +9,11 @@
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_fec>;
 
-	phy-mode = "rgmii";
+	phy-mode = "rgmii-id";
 	phy-handle = <&fecphy>;
 
 	fsl,magic-packet;
 	status = "okay";
-
-	tx-internal-delay-ps = <2000>;
-	rx-internal-delay-ps = <2000>;
 
 	mdio {
 		#address-cells = <1>;
@@ -32,8 +29,8 @@
 			reset-deassert-us = <16000>;
 
 			/* Interrupt handler */
-			interrupt-parent = <&gpio4>;
-			interrupts = <24 IRQ_TYPE_EDGE_FALLING>;
+			/*interrupt-parent = <&gpio4>;
+			interrupts = <24 IRQ_TYPE_LEVEL_LOW>;*/
 
 			/* Microsemi VSC8531 */
 			vsc8531,vddmac		= <1800>;
