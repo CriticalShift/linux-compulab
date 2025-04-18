@@ -3,6 +3,8 @@
  * Copyright 2025 CriticalShift
  */
 
+ #include <dt-bindings/gpio/gpio.h>
+ 
 / {
 	gpio-ctrl-pins {
 		compatible = "gpio-leds";

@@ -6,9 +6,8 @@
 /dts-v1/;
 
 /* Core modules */
-#include "imx8mp.dtsi"
+#include "../freescale/imx8mp.dtsi"
 #include "shield-core.dtsi"
-
 
 /* Peripherals */
 #include "shield-cell.dtsi"
