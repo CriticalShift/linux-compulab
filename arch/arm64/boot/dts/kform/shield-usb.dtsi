@@ -3,6 +3,8 @@
  * Copyright 2025 CriticalShift
  */
 
+#include <dt-bindings/gpio/gpio.h>
+
 / {
 	reg_usb1_host_vbus: regulator-usb1-vbus {
 		compatible = "regulator-fixed";
@@ -19,6 +21,7 @@
 
 &usb3_phy0 {
 	fsl,phy-tx-preemp-amp-tune = <3>;
+	vbus-supply = <&reg_usb1_host_vbus>;
 	status = "okay";
 };
 
@@ -34,6 +37,7 @@
 &usb3_phy1 {
 	fsl,phy-tx-preemp-amp-tune = <3>;
 	fsl,phy-tx-vref-tune = <0xb>;
+	vbus-supply = <&reg_usb1_host_vbus>;
 	status = "okay";
 };
 

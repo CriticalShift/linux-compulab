@@ -719,7 +719,7 @@
 				#address-cells = <1>;
 				#size-cells = <1>;
 
-				imx8mp_uid: unique-id@420 {
+				imx8mp_uid: unique-id@8 {
 					reg = <0x8 0x8>;
 				};
 
@@ -731,7 +731,7 @@
 					reg = <0x90 6>;
 				};
 
-				eth_mac2: mac-address@650 {
+				eth_mac2: mac-address@96 {
 					reg = <0x96 6>;
 				};
 

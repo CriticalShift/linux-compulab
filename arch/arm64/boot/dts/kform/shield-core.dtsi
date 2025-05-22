@@ -57,14 +57,14 @@
 		pagesize = <16>;
 	};
 
-//	rtc@69 {
-//		compatible = "ab1805";
-//		reg = <0x69>;
-//		pagesize = <16>;
-//		sqw = "32768_Hz";
-//		xt-frequency = <32772300>;
-//		status = "okay";
-//	};
+	rtc@69 {
+		compatible = "ab1805";
+		reg = <0x69>;
+		pagesize = <16>;
+		sqw = "32768_Hz";
+		xt-frequency = <32772300>;
+		status = "okay";
+	};
 };
 
 &snvs_pwrkey {

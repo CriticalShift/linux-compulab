@@ -3,6 +3,8 @@
  * Copyright 2025 CriticalShift
  */
 
+#include <dt-bindings/gpio/gpio.h>
+
 &i2c1 {
 	pmic: pca9450@25 {
 		reg = <0x25>;
@@ -10,7 +12,7 @@
 		/* PMIC PCA9450 PMIC_nINT GPIO1_IO3 */
 		pinctrl-0 = <&pinctrl_pmic>;
 		interrupt-parent = <&gpio1>;
-		interrupts = <3 IRQ_TYPE_LEVEL_LOW>;
+		interrupts = <3 GPIO_ACTIVE_LOW>;
 
 		regulators {
 			buck1: BUCK1 {
